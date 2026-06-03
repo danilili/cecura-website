@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Hoja descendiendo sobre ondas de agua">
+  <defs>
+    <linearGradient id="d-sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#EDE8F4"/>
+      <stop offset="60%" stop-color="#C9BFDC"/>
+      <stop offset="100%" stop-color="#AFA0C8"/>
+    </linearGradient>
+    <radialGradient id="d-glow" cx="50%" cy="32%" r="55%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="d-dots" width="14" height="14" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="0.55" fill="#72195A" fill-opacity="0.18"/>
+    </pattern>
+  </defs>
+
+  <rect width="800" height="600" fill="url(#d-sky)"/>
+  <rect width="800" height="600" fill="url(#d-glow)"/>
+  <rect width="800" height="600" fill="url(#d-dots)"/>
+
+  <!-- Horizonte / agua -->
+  <rect y="440" width="800" height="160" fill="#72195A" fill-opacity="0.12"/>
+
+  <!-- Ondas -->
+  <g stroke="#72195A" fill="none">
+    <ellipse cx="430" cy="500" rx="240" ry="22" stroke-opacity="0.30" stroke-width="1.2"/>
+    <ellipse cx="430" cy="500" rx="180" ry="16" stroke-opacity="0.24" stroke-width="1.2"/>
+    <ellipse cx="430" cy="500" rx="120" ry="11" stroke-opacity="0.18" stroke-width="1.2"/>
+    <ellipse cx="430" cy="500" rx="60" ry="6" stroke-opacity="0.14" stroke-width="1.2"/>
+  </g>
+
+  <!-- Hoja descendiendo -->
+  <g transform="translate(430,290) rotate(28)">
+    <path d="M0,-46 C22,-36 26,-10 0,38 C-26,-10 -22,-36 0,-46 Z" fill="#72195A" fill-opacity="0.85"/>
+    <line x1="0" y1="-42" x2="0" y2="34" stroke="#FFFFFF" stroke-opacity="0.4" stroke-width="1.2"/>
+  </g>
+
+  <!-- Pequeña estela de la hoja -->
+  <g fill="#72195A" fill-opacity="0.35">
+    <circle cx="380" cy="200" r="2.2"/>
+    <circle cx="365" cy="160" r="1.8"/>
+    <circle cx="350" cy="120" r="1.4"/>
+  </g>
+</svg>

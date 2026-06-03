@@ -298,3 +298,14 @@
 .tl-card-cta { margin-top: 24px; display: inline-flex; align-items: center; gap: 8px; color: var(--mezclilla); font-weight: 600; font-size: 15px; }
 .tl-card-cta::after { content: "→"; transition: transform 0.2s; }
 .tl-card:hover .tl-card-cta::after { transform: translateX(4px); }
+
+.tl-section-head {
+  margin: clamp(24px, 4vw, 48px) 0 32px;
+  padding-top: clamp(24px, 4vw, 40px);
+  border-top: 1px solid var(--line);
+}
+.tl-section-head h2 {
+  font-size: clamp(28px, 3vw, 40px);
+  margin-top: 16px;
+  max-width: 22ch;
+}

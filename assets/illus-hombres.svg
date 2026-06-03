@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Tres círculos entrelazados, símbolo de comunidad">
+  <defs>
+    <linearGradient id="m-bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#C9BFDC"/>
+      <stop offset="100%" stop-color="#3563A9"/>
+    </linearGradient>
+    <pattern id="m-dots" width="18" height="18" patternUnits="userSpaceOnUse">
+      <circle cx="3" cy="3" r="0.75" fill="#FFFFFF" fill-opacity="0.18"/>
+    </pattern>
+    <radialGradient id="m-haze" cx="50%" cy="50%" r="55%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="800" height="600" fill="url(#m-bg)"/>
+  <rect width="800" height="600" fill="url(#m-dots)"/>
+  <rect width="800" height="600" fill="url(#m-haze)"/>
+
+  <!-- Tres círculos entrelazados (escucha · presencia · acompañamiento) -->
+  <g fill="#FFFFFF" fill-opacity="0.07">
+    <circle cx="320" cy="270" r="170"/>
+    <circle cx="480" cy="270" r="170"/>
+    <circle cx="400" cy="400" r="170"/>
+  </g>
+  <g fill="none" stroke="#FFFFFF" stroke-width="2.4">
+    <circle cx="320" cy="270" r="170" stroke-opacity="0.85"/>
+    <circle cx="480" cy="270" r="170" stroke-opacity="0.85"/>
+    <circle cx="400" cy="400" r="170" stroke-opacity="0.85"/>
+  </g>
+
+  <!-- Punto central donde convergen -->
+  <circle cx="400" cy="315" r="12" fill="#72195A"/>
+  <circle cx="400" cy="315" r="20" fill="none" stroke="#72195A" stroke-opacity="0.45" stroke-width="1.2"/>
+</svg>
