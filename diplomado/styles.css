@@ -580,9 +580,88 @@ h1, h2 { font-family: var(--font-titulos); font-weight: 700; }
 }
 .cta-sticky .boton { width: 100%; max-width: 420px; text-align: center; padding: 14px 32px; font-size: 17px; }
 
+/* Paso previo al pago: modal que pide nombre y correo antes de Mercado Pago */
+.modal-pago {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.modal-pago[hidden] { display: none; }
+.modal-pago__fondo {
+  position: absolute;
+  inset: 0;
+  background: rgba(42, 33, 64, 0.62);
+}
+.modal-pago__tarjeta {
+  position: relative;
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 32px 28px 24px;
+  width: 100%;
+  max-width: 460px;
+  box-shadow: 0 24px 64px rgba(42, 33, 64, 0.34);
+  max-height: 100%;
+  overflow-y: auto;
+}
+.modal-pago__cerrar {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  background: none;
+  border: none;
+  font-size: 30px;
+  line-height: 1;
+  color: var(--gris-suave);
+  cursor: pointer;
+  padding: 4px 8px;
+}
+.modal-pago__cerrar:hover { color: var(--tinta); }
+.modal-pago__titulo {
+  font-family: var(--font-titulos);
+  font-weight: 700;
+  font-size: 25px;
+  color: var(--morado);
+  margin: 0 0 8px;
+}
+.modal-pago__bajada { margin: 0 0 16px; font-size: 16px; color: var(--gris); line-height: 1.5; }
+.modal-pago__resumen {
+  background: var(--lila-claro);
+  border-radius: 12px;
+  padding: 12px 14px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--morado);
+  margin-bottom: 18px;
+}
+.modal-pago__form { display: flex; flex-direction: column; gap: 12px; }
+.modal-pago__form .lead__input { flex: none; width: 100%; }
+.modal-pago__boton {
+  background: var(--azul);
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-titulos);
+  font-weight: 700;
+  font-size: 18px;
+  padding: 16px;
+  border-radius: 14px;
+  margin-top: 4px;
+}
+.modal-pago__boton:hover { background: var(--morado); }
+.modal-pago__boton:disabled { background: var(--gris-suave); cursor: default; }
+.modal-pago__legal { margin: 14px 0 0; font-size: 13px; color: var(--gris-suave); line-height: 1.5; text-align: center; }
+.modal-pago__legal a { color: var(--gris); }
+
 /* 5. MEDIA QUERIES (MÓVIL) ------------------------------------------------ */
 @media (max-width: 760px) {
   .cta-sticky { display: flex; }
   .cierre { padding-bottom: 140px; }   /* espacio para que el sticky no tape el footer */
   .inversion__precio { font-size: 40px; }
+  .modal-pago { padding: 12px; align-items: flex-start; }
+  .modal-pago__tarjeta { padding: 28px 20px 20px; margin-top: 16px; }
+  .modal-pago__titulo { font-size: 22px; }
 }

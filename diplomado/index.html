@@ -482,6 +482,31 @@
     <a class="boton" href="#checkout">Inscríbete ahora →</a>
   </div>
 
+  <!-- ======================= PASO PREVIO AL PAGO =======================
+       Captura nombre y correo antes de mandar a Mercado Pago, para poder
+       saber de quién es cada pago que llega. Los links de pago son iguales
+       para todos y no viajan datos con ellos, así que este es el único
+       punto donde se puede amarrar comprador ↔ pago.
+
+       REGLA: el registro NUNCA debe bloquear el pago. Si el webhook falla
+       o tarda, se redirige igual (ver irAMercadoPago() en el script). -->
+  <div class="modal-pago" id="modal-pago" hidden>
+    <div class="modal-pago__fondo" data-cerrar-pago></div>
+    <div class="modal-pago__tarjeta" role="dialog" aria-modal="true" aria-labelledby="modal-pago-titulo">
+      <button class="modal-pago__cerrar" type="button" data-cerrar-pago aria-label="Cerrar">&times;</button>
+      <h2 class="modal-pago__titulo" id="modal-pago-titulo">Un paso antes de pagar</h2>
+      <p class="modal-pago__bajada">Con estos datos identificamos tu pago y te enviamos tu comprobante de inscripción.</p>
+      <div class="modal-pago__resumen" id="modal-pago-resumen"></div>
+      <form class="modal-pago__form" id="form-pago">
+        <input class="lead__input" type="text"  name="nombre"   placeholder="Tu nombre completo" required autocomplete="name">
+        <input class="lead__input" type="email" name="correo"   placeholder="Tu correo" required autocomplete="email">
+        <input class="lead__input" type="tel"   name="telefono" placeholder="Tu teléfono (opcional)" autocomplete="tel">
+        <button class="modal-pago__boton" type="submit">Continuar al pago →</button>
+      </form>
+      <p class="modal-pago__legal">Al continuar aceptas nuestro <a href="aviso-privacidad.html" target="_blank">aviso de privacidad</a>. El cobro lo procesa Mercado Pago; tus datos bancarios nunca pasan por Cecura.</p>
+    </div>
+  </div>
+
   <script>
     // ====================================================================
     // MERCADO PAGO — ÚNICO LUGAR QUE HAY QUE EDITAR PARA ACTIVAR EL PAGO
@@ -535,20 +560,16 @@
       });
     });
 
+    // Monto que se cobra según el plan (debe coincidir con el link de MP)
+    var MONTOS = { unico: 30000, msi: 36000 };
+
     // --- Botón de pago ---------------------------------------------------
     botonPagar.addEventListener('click', function () {
       var plan = planSeleccionado();
       var link = MERCADO_PAGO[plan];
 
       if (link) {
-        if (window.fbq) {
-          fbq('track', 'InitiateCheckout', {
-            value: plan === 'msi' ? 36000 : 30000,
-            currency: 'MXN',
-            content_name: 'Diplomado Tanatologia 2026'
-          });
-        }
-        window.location.href = link;                       // → Mercado Pago
+        abrirModalPago(plan);                              // → paso previo
         return;
       }
 
@@ -557,6 +578,109 @@
         ? 'Hola, quiero inscribirme al Diplomado de Facilitadores en Tanatología a 12 meses sin intereses.'
         : 'Hola, quiero inscribirme al Diplomado de Facilitadores en Tanatología con el precio de pago temprano de $30,000.';
       window.open(WHATSAPP + '?text=' + encodeURIComponent(mensaje), '_blank');
+    });
+
+    // --- Paso previo al pago ---------------------------------------------
+    // Registra quién va a pagar ANTES de mandarlo a Mercado Pago. Los links
+    // de pago son iguales para todos, así que sin esto no hay forma de saber
+    // a quién corresponde cada cobro que llega.
+    var CHECKOUT_WEBHOOK = 'https://reservalia.app.n8n.cloud/webhook/cecura-checkout-diplomado';
+
+    var modalPago    = document.getElementById('modal-pago');
+    var formPago     = document.getElementById('form-pago');
+    var resumenPago  = document.getElementById('modal-pago-resumen');
+    var planEnCurso  = null;
+    var focoPrevio   = null;
+
+    function abrirModalPago(plan) {
+      planEnCurso = plan;
+      resumenPago.textContent = plan === 'msi'
+        ? 'Plan elegido: 12 meses sin intereses · $3,000 × 12 (total $36,000)'
+        : 'Plan elegido: pago temprano · $30,000';
+
+      // Si ya dejó sus datos en el formulario del programa, los reusamos
+      // para no pedirle dos veces lo mismo.
+      var leadForm = document.getElementById('lead-form');
+      if (leadForm) {
+        Array.prototype.forEach.call(['nombre', 'correo', 'telefono'], function (campo) {
+          var origen  = leadForm.elements[campo];
+          var destino = formPago.elements[campo];
+          if (origen && destino && origen.value.trim() && !destino.value) {
+            destino.value = origen.value.trim();
+          }
+        });
+      }
+
+      focoPrevio = document.activeElement;
+      modalPago.hidden = false;
+      document.body.style.overflow = 'hidden';
+      var primerVacio = formPago.querySelector('input:placeholder-shown') || formPago.elements.nombre;
+      if (primerVacio) { primerVacio.focus(); }
+    }
+
+    function cerrarModalPago() {
+      modalPago.hidden = true;
+      document.body.style.overflow = '';
+      if (focoPrevio && focoPrevio.focus) { focoPrevio.focus(); }
+    }
+
+    Array.prototype.forEach.call(document.querySelectorAll('[data-cerrar-pago]'), function (el) {
+      el.addEventListener('click', cerrarModalPago);
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && !modalPago.hidden) { cerrarModalPago(); }
+    });
+
+    // Manda a Mercado Pago pase lo que pase. Se llama una sola vez: o cuando
+    // el webhook responde, o cuando se agota la espera. Nunca se deja a la
+    // persona atrapada por culpa de nuestro registro.
+    function irAMercadoPago(plan) {
+      var yaSalio = false;
+      return function () {
+        if (yaSalio) { return; }
+        yaSalio = true;
+        window.location.href = MERCADO_PAGO[plan];
+      };
+    }
+
+    formPago.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      var plan  = planEnCurso || planSeleccionado();
+      var boton = formPago.querySelector('button[type="submit"]');
+      boton.disabled = true;
+      boton.textContent = 'Llevándote al pago…';
+
+      var datos = {
+        nombre:   formPago.elements.nombre.value.trim(),
+        correo:   formPago.elements.correo.value.trim(),
+        telefono: formPago.elements.telefono.value.trim(),
+        plan:     plan,
+        monto:    MONTOS[plan],
+        url:      window.location.href
+      };
+
+      if (window.fbq) {
+        fbq('track', 'InitiateCheckout', {
+          value: MONTOS[plan],
+          currency: 'MXN',
+          content_name: 'Diplomado Tanatologia 2026'
+        });
+      }
+
+      var salir = irAMercadoPago(plan);
+      setTimeout(salir, 1500);        // tope de espera: el pago manda
+
+      try {
+        fetch(CHECKOUT_WEBHOOK, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(datos),
+          keepalive: true             // el envío sobrevive al redirect
+        }).then(salir, salir);
+      } catch (err) {
+        salir();
+      }
     });
 
     // --- Formulario del lead magnet -------------------------------------
