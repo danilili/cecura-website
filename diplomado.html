@@ -100,15 +100,15 @@
       <div class="ws-card-body">
         <div class="ws-card-row">
           <span>Inversión</span>
-          <strong>$32,000 MXN</strong>
+          <strong>$36,000 MXN</strong>
         </div>
         <div class="ws-card-row" data-promo-only>
-          <span>Pago anticipado</span>
-          <strong data-precio>$22,400 · 30% desc.</strong>
+          <span>Pago temprano</span>
+          <strong data-precio>$30,000 · 15% desc.</strong>
         </div>
         <div class="ws-card-row">
-          <span>Pago</span>
-          <strong>Tarjeta vía MercadoPago</strong>
+          <span>Meses sin intereses</span>
+          <strong data-msi-corto>12 MSI de $3,000</strong>
         </div>
         <div class="ws-card-row">
           <span>Sede</span>
@@ -470,7 +470,7 @@
       </details>
       <details>
         <summary><span>¿Cómo y cuándo se paga?</span><span class="faq-icon">+</span></summary>
-        <p>La inversión del diplomado es de $32,000 MXN con IVA incluido. Si realizas tu pago antes del 15 de agosto de 2026 obtienes un 30% de descuento y la inversión queda en $22,400 MXN. El pago se realiza en línea con tarjeta de crédito o débito a través de MercadoPago, desde el formulario de registro de esta página, y emitimos factura. Si prefieres pagar por transferencia, escríbenos por WhatsApp.</p>
+        <p>La inversión total del diplomado es de $36,000 MXN, que puedes diferir hasta a 12 meses sin intereses de $3,000 con tarjetas participantes. Quien pagó antes del 15 de agosto de 2026 obtuvo el precio de pago temprano de $30,000 (15% de descuento, hasta 6 meses sin intereses). El pago se realiza en línea a través de MercadoPago desde el formulario de registro de esta página; también puedes pagar en OXXO o por transferencia SPEI. Cecura Guadalajara, A.C. emite factura: solo indícanos tus datos fiscales al inscribirte.</p>
       </details>
     </div>
   </div>
@@ -496,13 +496,14 @@
 
       <!-- Precio -->
       <div class="checkout-price">
-        <span class="promo-flag" data-promo-only>30% de descuento por pago anticipado</span>
-        <p class="checkout-strike" data-promo-only>Precio de lista $32,000 MXN</p>
-        <div class="checkout-amount"><span data-precio-grande>$22,400</span><small> MXN</small></div>
+        <span class="promo-flag" data-promo-only>15% de descuento por pago temprano</span>
+        <p class="checkout-strike" data-promo-only>Precio de lista $36,000 MXN</p>
+        <div class="checkout-amount"><span data-precio-grande>$30,000</span><small> MXN</small></div>
         <p class="checkout-sub" data-precio-nota>
-          Precio con descuento por pago anticipado, válido hasta el 15 de agosto de 2026.
-          IVA incluido · emitimos factura.
+          Precio con descuento por pago temprano, válido hasta el 15 de agosto de 2026.
+          Emitimos factura.
         </p>
+        <p class="checkout-msi" data-msi>Hasta 12 meses sin intereses de $3,000 con tarjeta participante.</p>
 
         <div class="countdown" data-promo-only>
           <span class="countdown-label">El descuento termina en</span>
@@ -694,27 +695,29 @@
 
 <script>
 /* =========================================================================
-   CONFIGURACIÓN DE PAGO — MercadoPago (Checkout Pro / Link de pago)
+   CONFIGURACIÓN DE PAGO — MercadoPago (links de pago)
    -------------------------------------------------------------------------
-   1. En el panel de MercadoPago (Tu negocio → Link de pago) crea DOS links:
-        · uno por $22,400 MXN  → precio con 30% de descuento
-        · uno por $32,000 MXN  → precio de lista
-   2. Copia cada URL (ej. https://mpago.la/xxxxxxx) en las constantes de abajo.
-   3. En el mismo panel configura las URLs de retorno (éxito / pendiente / error)
-      y la notificación por correo del pago.
-   Mientras los links estén vacíos, el botón envía al usuario a WhatsApp con
-   sus datos prellenados, para que ninguna inscripción se pierda.
+   Son los MISMOS links que usa la landing /diplomado/, para que ambas páginas
+   cobren igual. Si cambian allá, cámbialos también aquí.
+        · linkDescuento → $30,000 MXN (pago temprano −15%, hasta 6 MSI)
+        · linkLista     → $36,000 MXN (precio total, hasta 12 MSI)
+
+   Para reactivar o extender el pago temprano basta con mover `fechaLimite`:
+   mientras la fecha sea futura, la página muestra el precio con descuento,
+   el contador y el link de $30,000; al vencer, cambia sola a $36,000 con 12 MSI.
+   Si un link se vacía, el botón deriva la venta a WhatsApp con los datos
+   prellenados para que ninguna inscripción se pierda.
    ========================================================================= */
 const MP_CONFIG = {
-  linkDescuento: '',   // Link de pago de $22,400 MXN
-  linkLista:     '',   // Link de pago de $32,000 MXN
-  fechaLimite:   '2026-08-15T23:59:59-06:00', // Fin del 30% de descuento
+  linkDescuento: 'https://mpago.li/1HLzjbP',  // $30,000 MXN · pago temprano, hasta 6 MSI
+  linkLista:     'https://mpago.li/2tYbY2V',  // $36,000 MXN · precio total, hasta 12 MSI
+  fechaLimite:   '2026-08-15T23:59:59-06:00', // Fin del 15% por pago temprano
   leadEndpoint:  '',   // Opcional: URL que recibe los datos del registro por POST (JSON)
   whatsapp:      '523319894744'
 };
 
-const PRECIO_LISTA = 32000;
-const PRECIO_DESC  = 22400;
+const PRECIO_LISTA = 36000;
+const PRECIO_DESC  = 30000;
 
 (function () {
   const $  = (s, c) => (c || document).querySelector(s);
@@ -738,12 +741,21 @@ const PRECIO_DESC  = 22400;
     if (grande) grande.textContent = mxn(precio);
 
     const chip = $('[data-precio]');
-    if (chip) chip.textContent = vigente ? mxn(PRECIO_DESC) + ' · 30% desc.' : mxn(PRECIO_LISTA);
+    if (chip) chip.textContent = mxn(PRECIO_DESC) + ' · 15% desc.';
 
     const nota = $('[data-precio-nota]');
     if (nota) nota.textContent = vigente
-      ? 'Precio con descuento por pago anticipado, válido hasta el 15 de agosto de 2026. IVA incluido · emitimos factura.'
-      : 'Precio de lista. IVA incluido · emitimos factura.';
+      ? 'Precio con descuento por pago temprano, válido hasta el 15 de agosto de 2026. Emitimos factura.'
+      : 'Precio total del diplomado. Emitimos factura.';
+
+    // Meses sin intereses: 6 MSI sobre el pago temprano, 12 MSI sobre el precio total.
+    const meses = vigente ? 6 : 12;
+    const msi = $('[data-msi]');
+    if (msi) msi.textContent = 'Hasta ' + meses + ' meses sin intereses de ' +
+      mxn(Math.round(precio / meses)) + ' con tarjeta participante.';
+
+    const msiCorto = $('[data-msi-corto]');
+    if (msiCorto) msiCorto.textContent = meses + ' MSI de ' + mxn(Math.round(precio / meses));
 
     const label = $('[data-btn-label]');
     if (label) label.textContent = (enLinea ? 'Pagar e inscribirme · ' : 'Inscribirme · ') + mxn(precio);
@@ -756,7 +768,8 @@ const PRECIO_DESC  = 22400;
 
     const mpNota = $('[data-mp-note]');
     if (mpNota) mpNota.innerHTML = enLinea
-      ? 'Pago seguro procesado por <strong>MercadoPago</strong> · tarjeta de crédito y débito. Consulta las promociones de meses sin intereses disponibles al momento del pago.'
+      ? 'Pago seguro procesado por <strong>MercadoPago</strong> · tarjeta de crédito y débito, hasta ' + meses +
+        ' meses sin intereses con tarjetas participantes. También puedes pagar en OXXO o por transferencia SPEI.'
       : 'Pago con tarjeta de crédito y débito a través de <strong>MercadoPago</strong>. Te enviamos el enlace de pago seguro por WhatsApp.';
   }
 
@@ -797,7 +810,9 @@ const PRECIO_DESC  = 22400;
       const datos = Object.fromEntries(new FormData(form).entries());
       datos.programa = 'Diplomado en Tanatología 2026–2027';
       datos.monto    = promoVigente() ? PRECIO_DESC : PRECIO_LISTA;
-      datos.concepto = promoVigente() ? 'Pago anticipado (30% descuento)' : 'Precio de lista';
+      datos.concepto = promoVigente()
+        ? 'Pago temprano (15% descuento) · hasta 6 MSI'
+        : 'Precio total · hasta 12 MSI';
       datos.origen   = location.href;
 
       btn.disabled = true;
