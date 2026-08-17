@@ -74,22 +74,6 @@
     </div>
   </section>
 
-  <!-- ======================= BANNER DE PROMOCIÓN =======================
-       Para desactivar la promoción: elimina este bloque y ajusta los
-       precios en la sección Inversión y Checkout. -->
-  <div class="promo">
-    <div class="promo__tarjeta">
-      <div class="promo__izquierda">
-        <span class="promo__badge">−15%</span>
-        <div>
-          <div class="promo__titulo">15% de descuento early-bird</div>
-          <div class="promo__sub">Inscríbete y paga antes del 15 de agosto.</div>
-        </div>
-      </div>
-      <div class="promo__precio">Inscríbete hoy por $30,000 <span class="precio-tachado">$36,000</span></div>
-    </div>
-  </div>
-
   <!-- ======================= ¿PARA QUIÉN ES? ======================= -->
   <section class="para-quien seccion-patron">
     <div class="contenedor">
@@ -291,31 +275,27 @@
   </section>
 
   <!-- ======================= INVERSIÓN =======================
-       Precios: base $36,000 · pago temprano −15% redondeado = $30,000 (hasta 6 MSI)
-       · precio total a 12 MSI = $3,000/mes.
-       Si cambia la promoción, actualiza también el banner y el checkout. -->
+       Precio único: $36,000 · hasta 12 MSI = $3,000/mes.
+       Si cambia el precio, actualiza también el checkout y el FAQ. -->
   <section class="inversion seccion-patron">
     <div class="contenedor">
       <h2 class="titulo-seccion">Tu inversión</h2>
       <div class="inversion__precio-linea">
-        <span class="inversion__precio-anterior">$36,000</span>
-        <span class="inversion__precio">$30,000</span>
-        <span class="inversion__moneda">MXN · pago temprano</span>
-        <span class="inversion__ahorro">Ahorras $6,000</span>
+        <span class="inversion__precio">$36,000</span>
+        <span class="inversion__moneda">MXN · diplomado completo</span>
       </div>
-      <p class="inversion__bajada">Dos formas de pagar: aprovecha el precio de pago temprano a 6 meses sin intereses, o difiere el precio total a 12 meses.</p>
+      <p class="inversion__bajada">Dos formas de pagar: en una sola exhibición o diferido hasta 12 meses sin intereses.</p>
       <div class="inversion__planes">
         <div class="plan plan--destacado">
-          <span class="plan__badge">MEJOR PRECIO</span>
-          <div class="plan__titulo">Pago temprano · 6 meses sin intereses</div>
-          <div class="plan__precio">$5,000<span class="plan__unidad"> /mes</span></div>
-          <div class="plan__nota">Precio de pago temprano con 15% de descuento: $30,000 en total, o hasta 6 meses sin intereses con tarjeta.</div>
-          <div class="plan__vigencia">Válido hasta el 15 de agosto</div>
-        </div>
-        <div class="plan">
+          <span class="plan__badge">SIN INTERESES</span>
           <div class="plan__titulo">12 meses sin intereses</div>
           <div class="plan__precio">$3,000<span class="plan__unidad"> /mes</span></div>
-          <div class="plan__nota">Sobre el precio total ($36,000), con tarjeta vía Mercado Pago.</div>
+          <div class="plan__nota">Difiere los $36,000 en 12 pagos con tarjetas participantes vía Mercado Pago.</div>
+        </div>
+        <div class="plan">
+          <div class="plan__titulo">Pago en una exhibición</div>
+          <div class="plan__precio">$36,000<span class="plan__unidad"> total</span></div>
+          <div class="plan__nota">Con tarjeta, en OXXO o por transferencia SPEI.</div>
         </div>
       </div>
       <div class="inversion__cta">
@@ -336,29 +316,9 @@
       </div>
       <p class="checkout__bajada">Procesado por Mercado Pago. Tus datos bancarios nunca pasan por Cecura.</p>
 
-      <!-- Selector de plan: cada opción apunta a un link de pago distinto -->
-      <div class="checkout__opciones">
-        <label class="opcion-pago">
-          <input type="radio" name="plan-pago" value="unico" checked>
-          <span class="opcion-pago__cuerpo">
-            <span class="opcion-pago__titulo">Pago temprano · $30,000</span>
-            <span class="opcion-pago__nota">Con opción a 6 meses sin intereses</span>
-          </span>
-          <span class="opcion-pago__precio">$30,000</span>
-        </label>
-        <label class="opcion-pago">
-          <input type="radio" name="plan-pago" value="msi">
-          <span class="opcion-pago__cuerpo">
-            <span class="opcion-pago__titulo">12 meses sin intereses</span>
-            <span class="opcion-pago__nota">Sobre el precio total de $36,000</span>
-          </span>
-          <span class="opcion-pago__precio">$3,000<span class="opcion-pago__unidad">/mes</span></span>
-        </label>
-      </div>
-
       <div class="checkout__resumen">
-        <div class="checkout__linea"><span>Diplomado de Facilitadores en Tanatología</span><strong id="resumen-total">$30,000</strong></div>
-        <div class="checkout__descuento" id="resumen-detalle"><span>Pago temprano · 15% de descuento (hasta el 15 de agosto)</span><span>−$6,000</span></div>
+        <div class="checkout__linea"><span>Diplomado de Facilitadores en Tanatología</span><strong>$36,000</strong></div>
+        <div class="checkout__detalle"><span>Hasta 12 meses sin intereses con tarjeta</span><span>$3,000 × 12</span></div>
       </div>
 
       <button class="checkout__boton" id="boton-pagar" type="button">
@@ -366,7 +326,7 @@
         <span class="mp-logo">Mercado Pago</span>
       </button>
       <div class="checkout__sellos">
-        <span class="sello">Tarjeta · 6 y 12 MSI</span>
+        <span class="sello">Tarjeta · hasta 12 MSI</span>
         <span class="sello">OXXO</span>
         <span class="sello">SPEI</span>
         <span class="sello">🔒 Conexión cifrada</span>
@@ -387,11 +347,11 @@
         </details>
         <details class="faq__item">
           <summary class="faq__pregunta">¿Cuáles son las formas de pago?</summary>
-          <div class="faq__respuesta">Dos esquemas: el precio de pago temprano de $30,000 (con opción a 6 meses sin intereses), o el precio total de $36,000 a 12 meses sin intereses, con tarjeta vía Mercado Pago. También puedes pagar en OXXO o por transferencia SPEI.</div>
+          <div class="faq__respuesta">La inversión es de $36,000 y puedes pagarla en una sola exhibición o hasta en 12 meses sin intereses con tarjeta vía Mercado Pago. También puedes pagar en OXXO o por transferencia SPEI.</div>
         </details>
         <details class="faq__item">
           <summary class="faq__pregunta">¿Puedo pagar a meses sin intereses?</summary>
-          <div class="faq__respuesta">Sí. El precio de pago temprano se puede diferir hasta 6 meses sin intereses, o puedes elegir 12 meses sin intereses sobre el precio total, con tarjetas participantes a través de Mercado Pago.</div>
+          <div class="faq__respuesta">Sí. Puedes diferir los $36,000 hasta en 12 meses sin intereses ($3,000 al mes) con tarjetas participantes a través de Mercado Pago.</div>
         </details>
         <details class="faq__item">
           <summary class="faq__pregunta">¿Qué obtengo al terminar y qué validez tiene el certificado?</summary>
@@ -511,72 +471,36 @@
     // ====================================================================
     // MERCADO PAGO — ÚNICO LUGAR QUE HAY QUE EDITAR PARA ACTIVAR EL PAGO
     // --------------------------------------------------------------------
-    // 1. En Mercado Pago: Tu negocio → Links de pago → crear un link por plan.
-    //      · "unico": monto $30,000 (pago temprano), cuotas hasta 6 MSI.
-    //      · "msi":   monto $36,000 (precio total), cuotas hasta 12 MSI.
-    // 2. Pega aquí la URL de cada link (se ve así: https://mpago.li/XXXXXXX
+    // 1. En Mercado Pago: Tu negocio → Links de pago → crear el link del
+    //    diplomado: monto $36,000, cuotas hasta 12 MSI.
+    // 2. Pega aquí la URL del link (se ve así: https://mpago.li/XXXXXXX
     //    o https://www.mercadopago.com.mx/...).
     // 3. Listo: el botón deja de mandar a WhatsApp y cobra directo.
     //
-    // Si en vez de links se usa Checkout Pro (con backend), sustituye la
-    // función irAPagar() por la creación de la preferencia y el redirect a
-    // su init_point.
+    // Si en vez de un link se usa Checkout Pro (con backend), sustituye el
+    // redirect por la creación de la preferencia y el salto a su init_point.
     // ====================================================================
-    var MERCADO_PAGO = {
-      unico: 'https://mpago.li/1HLzjbP',   // ← pago temprano $30,000 · hasta 6 MSI
-      msi:   'https://mpago.li/2tYbY2V'    // ← precio total $36,000 · 12 MSI
-    };
+    var MERCADO_PAGO = 'https://mpago.li/2tYbY2V';   // ← $36,000 · hasta 12 MSI
 
-    // Fallback mientras no haya links: la venta se deriva a WhatsApp.
+    // Fallback mientras no haya link: la venta se deriva a WhatsApp.
     var WHATSAPP = 'https://wa.me/523319894744';
 
-    // Textos del resumen según el plan elegido
-    var PLANES = {
-      unico: {
-        total: '$30,000',
-        detalle: ['Pago temprano · 15% de descuento (hasta el 15 de agosto)', '−$6,000']
-      },
-      msi: {
-        total: '$36,000',
-        detalle: ['12 meses sin intereses con tarjeta', '$3,000 × 12']
-      }
-    };
+    // Identificador y monto del único plan. Se conserva el nombre "msi"
+    // porque es el valor que el webhook de registro ya recibe y guarda.
+    var PLAN  = 'msi';
+    var MONTO = 36000;
 
-    var botonPagar   = document.getElementById('boton-pagar');
-    var resumenTotal = document.getElementById('resumen-total');
-    var resumenDet   = document.getElementById('resumen-detalle').getElementsByTagName('span');
-
-    function planSeleccionado() {
-      return document.querySelector('input[name="plan-pago"]:checked').value;
-    }
-
-    // Actualiza el resumen al cambiar de plan
-    Array.prototype.forEach.call(document.querySelectorAll('input[name="plan-pago"]'), function (radio) {
-      radio.addEventListener('change', function () {
-        var plan = PLANES[planSeleccionado()];
-        resumenTotal.textContent = plan.total;
-        resumenDet[0].textContent = plan.detalle[0];
-        resumenDet[1].textContent = plan.detalle[1];
-      });
-    });
-
-    // Monto que se cobra según el plan (debe coincidir con el link de MP)
-    var MONTOS = { unico: 30000, msi: 36000 };
+    var botonPagar = document.getElementById('boton-pagar');
 
     // --- Botón de pago ---------------------------------------------------
     botonPagar.addEventListener('click', function () {
-      var plan = planSeleccionado();
-      var link = MERCADO_PAGO[plan];
-
-      if (link) {
-        abrirModalPago(plan);                              // → paso previo
+      if (MERCADO_PAGO) {
+        abrirModalPago();                                  // → paso previo
         return;
       }
 
-      // Sin link configurado: abrir WhatsApp con el plan ya escrito.
-      var mensaje = plan === 'msi'
-        ? 'Hola, quiero inscribirme al Diplomado de Facilitadores en Tanatología a 12 meses sin intereses.'
-        : 'Hola, quiero inscribirme al Diplomado de Facilitadores en Tanatología con el precio de pago temprano de $30,000.';
+      // Sin link configurado: abrir WhatsApp con el mensaje ya escrito.
+      var mensaje = 'Hola, quiero inscribirme al Diplomado de Facilitadores en Tanatología ($36,000, hasta 12 meses sin intereses).';
       window.open(WHATSAPP + '?text=' + encodeURIComponent(mensaje), '_blank');
     });
 
@@ -589,14 +513,10 @@
     var modalPago    = document.getElementById('modal-pago');
     var formPago     = document.getElementById('form-pago');
     var resumenPago  = document.getElementById('modal-pago-resumen');
-    var planEnCurso  = null;
     var focoPrevio   = null;
 
-    function abrirModalPago(plan) {
-      planEnCurso = plan;
-      resumenPago.textContent = plan === 'msi'
-        ? 'Plan elegido: 12 meses sin intereses · $3,000 × 12 (total $36,000)'
-        : 'Plan elegido: pago temprano · $30,000';
+    function abrirModalPago() {
+      resumenPago.textContent = 'Inversión: $36,000 · hasta 12 meses sin intereses de $3,000';
 
       // Si ya dejó sus datos en el formulario del programa, los reusamos
       // para no pedirle dos veces lo mismo.
@@ -634,19 +554,18 @@
     // Manda a Mercado Pago pase lo que pase. Se llama una sola vez: o cuando
     // el webhook responde, o cuando se agota la espera. Nunca se deja a la
     // persona atrapada por culpa de nuestro registro.
-    function irAMercadoPago(plan) {
+    function irAMercadoPago() {
       var yaSalio = false;
       return function () {
         if (yaSalio) { return; }
         yaSalio = true;
-        window.location.href = MERCADO_PAGO[plan];
+        window.location.href = MERCADO_PAGO;
       };
     }
 
     formPago.addEventListener('submit', function (e) {
       e.preventDefault();
 
-      var plan  = planEnCurso || planSeleccionado();
       var boton = formPago.querySelector('button[type="submit"]');
       boton.disabled = true;
       boton.textContent = 'Llevándote al pago…';
@@ -655,20 +574,20 @@
         nombre:   formPago.elements.nombre.value.trim(),
         correo:   formPago.elements.correo.value.trim(),
         telefono: formPago.elements.telefono.value.trim(),
-        plan:     plan,
-        monto:    MONTOS[plan],
+        plan:     PLAN,
+        monto:    MONTO,
         url:      window.location.href
       };
 
       if (window.fbq) {
         fbq('track', 'InitiateCheckout', {
-          value: MONTOS[plan],
+          value: MONTO,
           currency: 'MXN',
           content_name: 'Diplomado Tanatologia 2026'
         });
       }
 
-      var salir = irAMercadoPago(plan);
+      var salir = irAMercadoPago();
       setTimeout(salir, 1500);        // tope de espera: el pago manda
 
       try {
