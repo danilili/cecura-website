@@ -524,6 +524,8 @@
 @media (max-width: 880px) { .tl-card { grid-template-columns: 1fr; } }
 .tl-card-img { aspect-ratio: 4/3; overflow: hidden; position: relative; background: var(--lavanda-pale); }
 .tl-card-img img { width: 100%; height: 100%; object-fit: cover; }
+/* Portadas verticales (4:5) con el titulo dentro de la imagen: se muestran completas */
+.tl-card-img.cover { aspect-ratio: 4/5; }
 .tl-card-img.placeholder::before {
   content: "";
   position: absolute; inset: 0;
